@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#132b43">
+  <meta name="description" content="Join Riverbend Recreation’s executive management team. Explore how corporate decisions change ownership, cash, and stockholders’ equity.">
+  <title>Executive Decisions</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to meeting</a>
+  <header class="topbar">
+    <a class="brand" href="#" id="brand-home" aria-label="Executive Decisions home"><span class="brand-icon" aria-hidden="true">E<span>.</span></span><span>Executive<br><strong>Decisions</strong></span></a>
+    <div class="header-right"><span id="save-status" class="save-status" role="status">Saved on this device</span><button id="menu-button" class="button quiet small" aria-expanded="false" aria-controls="app-menu">Meeting tools <span aria-hidden="true">⌄</span></button></div>
+    <div id="app-menu" class="app-menu" hidden>
+      <button data-action="export">Save meeting file</button>
+      <button data-action="import">Open meeting file</button>
+      <button data-action="print">Print meeting brief</button>
+      <button data-action="restart">Start a new meeting</button>
+    </div>
+  </header>
+  <div id="storage-warning" class="storage-warning" role="status" hidden>Browser saving is unavailable. Save a meeting file before closing this tab. <button id="backup-now" class="button secondary small">Save meeting file</button></div>
+  <div id="app"></div>
+  <input type="file" id="import-file" accept="application/json,.json" hidden>
+  <dialog id="dialog"><div id="dialog-content"></div></dialog>
+  <div id="toast" role="status" class="toast" hidden></div>
+  <noscript><main><h1>Executive Decisions</h1><p>Enable JavaScript in your browser to use this activity.</p></main></noscript>
+  <script src="engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
