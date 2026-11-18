@@ -1,5 +1,7 @@
 /* Everything needed for offline use is kept within this app's scope. */
-const CACHE = 'boardroom-decisions-v1.0.9';
+const CACHE = 'executive-decisions-v1.1.0';
+// Clean up only this app's earlier offline caches during an upgrade.
+const LEGACY_CACHE_PREFIX = 'boardroom-decisions-';
 const ROOT = new URL('./', self.location.href).href;
 const FILES = ['index.html', 'styles.css', 'engine.js', 'app.js', 'manifest.webmanifest',
   'icon.svg', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png'];
@@ -7,7 +9,9 @@ self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES.map(f => new URL(f, ROOT).href))).then(() => self.skipWaiting()));
 });
 self.addEventListener('activate', event => {
-  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('boardroom-decisions-') && key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim()));
+  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key =>
+    (key.startsWith('executive-decisions-') || key.startsWith(LEGACY_CACHE_PREFIX)) && key !== CACHE
+  ).map(key => caches.delete(key)))).then(() => self.clients.claim()));
 });
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET' || !event.request.url.startsWith(ROOT)) return;

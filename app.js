@@ -1,7 +1,9 @@
 (function () {
   'use strict';
-  const E = window.Boardroom;
-  const KEY = 'boardroom-decisions-v1';
+  const E = window.ExecutiveDecisions;
+  const KEY = 'executive-decisions-v1';
+  // Read earlier saves without changing or discarding them.
+  const LEGACY_KEY = 'boardroom-decisions-v1';
   const $ = s => document.querySelector(s);
   const money = n => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
   const num = n => new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(n);
@@ -11,8 +13,14 @@
   let recovered = false;
   let state = E.initialState();
   try {
-    const saved = localStorage.getItem(KEY);
-    if (saved) { const checked = E.validateState(JSON.parse(saved)); if (checked) state = checked; else recovered = true; }
+    for (const key of [KEY, LEGACY_KEY]) {
+      const saved = localStorage.getItem(key);
+      if (!saved) continue;
+      let checked;
+      try { checked = E.validateState(JSON.parse(saved)); } catch (_) { checked = null; }
+      if (checked) { state = checked; recovered = false; break; }
+      recovered = true;
+    }
   } catch (_) { storageOK = false; }
   let home = true;
   let toastTimer;

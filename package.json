@@ -1,0 +1,8 @@
+{
+  "name": "executive-decisions",
+  "version": "1.0.0",
+  "private": true,
+  "description": "An offline JavaScript activity about stockholders' equity.",
+  "scripts": { "test": "node --test engine.test.cjs", "start": "node server.cjs" },
+  "engines": { "node": ">=18" }
+}
